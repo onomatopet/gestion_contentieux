@@ -1,16 +1,20 @@
 module com.contentieux.gestion_contentieux {
+    // Déclare que notre module a besoin des bibliothèques JavaFX
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.web;
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
+    // Déclare que notre module a besoin de la bibliothèque pour la BDD
     requires java.sql;
 
+    // Ouvre l'accès à nos paquetages pour que JavaFX puisse y accéder
     opens com.contentieux.gestion_contentieux to javafx.fxml;
     exports com.contentieux.gestion_contentieux;
+
+    // On doit aussi ouvrir l'accès au paquetage contenant le contrôleur
+    opens com.contentieux.gestion_contentieux.controller to javafx.fxml;
+    exports com.contentieux.gestion_contentieux.controller;
+
+    // Et au paquetage contenant le modèle, pour les TableView
+    opens com.contentieux.gestion_contentieux.model to javafx.fxml;
+    exports com.contentieux.gestion_contentieux.model;
 }
