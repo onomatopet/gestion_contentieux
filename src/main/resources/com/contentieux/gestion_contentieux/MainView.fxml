@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="mainBorderPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.contentieux.gestion_contentieux.controller.MainController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Fichier">
+                    <items>
+                        <MenuItem fx:id="menuItemQuitter" onAction="#handleMenuItemQuitter" mnemonicParsing="false" text="Quitter" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Paramétrage">
+                    <items>
+                        <MenuItem fx:id="menuItemCentres" mnemonicParsing="false" text="Gérer les Centres" />
+                        <MenuItem fx:id="menuItemServices" mnemonicParsing="false" text="Gérer les Services" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Contentieux">
+                    <items>
+                        <MenuItem fx:id="menuItemNouvelleAffaire" mnemonicParsing="false" text="Nouvelle Affaire" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>
