@@ -4,9 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
+import java.net.URL;
 import java.io.IOException;
 
 public class MainController {
@@ -20,26 +21,23 @@ public class MainController {
         // loadView("CentreView.fxml");
     }
 
-    @FXML
-    private void handleMenuItemCentres(ActionEvent event) {
+    @FXML // Ajouter l'annotation
+    private void handleMenuItemCentres() { // Retirer le paramètre ActionEvent
         loadView("CentreView.fxml");
     }
 
-    @FXML
-    private void handleMenuItemServices(ActionEvent event) {
+    @FXML // Ajouter l'annotation
+    private void handleMenuItemServices() { // Retirer le paramètre ActionEvent
         loadView("ServiceView.fxml");
     }
 
-    @FXML
-    private void handleMenuItemNouvelleAffaire(ActionEvent event) {
-        // À implémenter plus tard
-        System.out.println("Chargement de la vue 'Nouvelle Affaire'...");
-        // loadView("AffaireView.fxml");
+    @FXML // Ajouter l'annotation
+    private void handleMenuItemNouvelleAffaire() { // Retirer le paramètre ActionEvent
+        loadView("AffaireSaisieView.fxml");
     }
 
-    @FXML
-    private void handleMenuItemQuitter(ActionEvent event) {
-        // Obtenir la fenêtre actuelle et la fermer
+    @FXML // Ajouter l'annotation
+    private void handleMenuItemQuitter() { // Retirer le paramètre ActionEvent
         Stage stage = (Stage) mainBorderPane.getScene().getWindow();
         stage.close();
     }
@@ -50,14 +48,34 @@ public class MainController {
      */
     private void loadView(String fxmlFileName) {
         try {
-            // Le chemin doit être relatif au dossier 'resources'
             String resourcePath = "/com/contentieux/gestion_contentieux/" + fxmlFileName;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
+
+            // Étape de débogage : vérifier si la ressource est trouvée
+            URL resourceUrl = getClass().getResource(resourcePath);
+            if (resourceUrl == null) {
+                showAlert(Alert.AlertType.ERROR, "Erreur de ressource",
+                        "Le fichier FXML n'a pas été trouvé à l'emplacement : " + resourcePath);
+                return; // On arrête tout ici
+            }
+
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent view = loader.load();
             mainBorderPane.setCenter(view);
+
         } catch (IOException e) {
-            e.printStackTrace();
-            // Afficher une alerte à l'utilisateur en cas d'erreur de chargement
+            // Cette erreur se produira si le FXML est trouvé mais contient une erreur de syntaxe
+            showAlert(Alert.AlertType.ERROR, "Erreur de chargement FXML",
+                    "Une erreur est survenue lors du chargement de la vue : " + fxmlFileName + "\n\nErreur détaillée : " + e.getMessage());
+            e.printStackTrace(); // On remet le printStackTrace ici pour voir l'erreur complète dans la console
         }
+    }
+
+    // Ajouter cette méthode dans MainController.java
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
