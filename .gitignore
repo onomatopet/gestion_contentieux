@@ -36,3 +36,16 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Fichiers de build Maven
+/target/
+
+# Fichiers de logs
+*.log
+
+# Fichiers générés par le système d'exploitation
+Thumbs.db
+
+# Le fichier de base de données local.
+# On ne versionne jamais les données, seulement le script pour la créer !
+/database/gestion_contentieux.db

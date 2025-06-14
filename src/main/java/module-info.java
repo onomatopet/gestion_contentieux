@@ -9,6 +9,7 @@ module com.contentieux.gestion_contentieux {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.sql;
 
     opens com.contentieux.gestion_contentieux to javafx.fxml;
     exports com.contentieux.gestion_contentieux;
