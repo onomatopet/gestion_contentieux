@@ -18,7 +18,9 @@ public class ContrevenantDAO {
                 contrevenants.add(new Contrevenant(
                         rs.getInt("id"),
                         rs.getString("code"),
-                        rs.getString("nom_complet")
+                        rs.getString("nom_complet"),
+                        rs.getString("adresse"),
+                        rs.getString("telephone")
                 ));
             }
         } catch (SQLException e) {
@@ -26,5 +28,41 @@ public class ContrevenantDAO {
         }
         return contrevenants;
     }
-    // ... autres méthodes CRUD si besoin
+
+    public void add(Contrevenant c) {
+        String sql = "INSERT INTO contrevenants(code, nom_complet, adresse, telephone) VALUES(?, ?, ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, c.getCode());
+            pstmt.setString(2, c.getNomComplet());
+            pstmt.setString(3, c.getAdresse());
+            pstmt.setString(4, c.getTelephone());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Contrevenant c) {
+        String sql = "UPDATE contrevenants SET code = ?, nom_complet = ?, adresse = ?, telephone = ? WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, c.getCode());
+            pstmt.setString(2, c.getNomComplet());
+            pstmt.setString(3, c.getAdresse());
+            pstmt.setString(4, c.getTelephone());
+            pstmt.setInt(5, c.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id) {
+        String sql = "DELETE FROM contrevenants WHERE id = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

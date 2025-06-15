@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.contentieux.gestion_contentieux.controller.AgentController">
+    <center>
+        <TableView fx:id="agentTableView">
+            <columns>
+                <TableColumn fx:id="matriculeColumn" prefWidth="100.0" text="Matricule" />
+                <TableColumn fx:id="nomColumn" prefWidth="150.0" text="Nom" />
+                <TableColumn fx:id="prenomColumn" prefWidth="150.0" text="Prénom" />
+                <TableColumn fx:id="gradeColumn" prefWidth="100.0" text="Grade" />
+                <TableColumn fx:id="serviceColumn" prefWidth="150.0" text="Service" />
+                <TableColumn fx:id="actifColumn" prefWidth="75.0" text="Actif" />
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="10.0" style="-fx-padding: 10;">
+            <children>
+                <Label text="Gestion des Agents">
+                    <font><Font name="System Bold" size="14.0" /></font>
+                </Label>
+                <Label text="Matricule" />
+                <TextField fx:id="matriculeField" />
+                <Label text="Nom" />
+                <TextField fx:id="nomField" />
+                <Label text="Prénom" />
+                <TextField fx:id="prenomField" />
+                <Label text="Grade" />
+                <TextField fx:id="gradeField" />
+                <Label text="Service de rattachement" />
+                <ComboBox fx:id="serviceComboBox" prefWidth="220.0" />
+                <CheckBox fx:id="actifCheckBox" mnemonicParsing="false" text="Agent Actif" />
+                <HBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Button onAction="#handleAdd" text="Ajouter" />
+                        <Button onAction="#handleUpdate" text="Modifier" />
+                    </children>
+                </HBox>
+                <Button onAction="#handleDelete" prefWidth="220.0" style="-fx-background-color: #ff6666;" text="Supprimer" textFill="WHITE" />
+                <Button onAction="#handleClear" prefWidth="220.0" text="Nouveau" />
+            </children>
+        </VBox>
+    </right>
+</BorderPane>

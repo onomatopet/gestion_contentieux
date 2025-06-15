@@ -1,78 +1,91 @@
 package com.contentieux.gestion_contentieux.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import java.net.URL;
+
 import java.io.IOException;
+import java.net.URL;
 
 public class MainController {
 
-    @FXML
-    private BorderPane mainBorderPane;
+    @FXML private BorderPane mainBorderPane;
+    @FXML private ToolBar mainToolBar; // Référence à notre nouvelle ToolBar
 
     @FXML
     public void initialize() {
-        // Optionnel: charger une vue par défaut au démarrage
+        // Optionnel : charger une vue par défaut au démarrage
         // loadView("CentreView.fxml");
     }
 
-    @FXML // Ajouter l'annotation
-    private void handleMenuItemCentres() { // Retirer le paramètre ActionEvent
-        loadView("CentreView.fxml");
+    @FXML
+    private void handleMenuItemAgents() {
+        loadView("AgentView.fxml"); // Nom du futur fichier FXML
     }
 
-    @FXML // Ajouter l'annotation
-    private void handleMenuItemServices() { // Retirer le paramètre ActionEvent
-        loadView("ServiceView.fxml");
+    @FXML
+    private void handleMenuItemContrevenants() {
+        loadView("ContrevenantView.fxml"); // Nom du futur fichier FXML
     }
 
-    @FXML // Ajouter l'annotation
-    private void handleMenuItemNouvelleAffaire() { // Retirer le paramètre ActionEvent
-        loadView("AffaireSaisieView.fxml");
+    @FXML
+    private void handleMenuItemContraventions() {
+        loadView("ContraventionView.fxml"); // Nom du futur fichier FXML
     }
 
-    @FXML // Ajouter l'annotation
-    private void handleMenuItemQuitter() { // Retirer le paramètre ActionEvent
+    // --- Les méthodes pour les menus ne changent pas ---
+    @FXML private void handleMenuItemCentres() { loadView("CentreView.fxml"); }
+    @FXML private void handleMenuItemServices() { loadView("ServiceView.fxml"); }
+    @FXML private void handleMenuItemNouvelleAffaire() { loadView("AffaireSaisieView.fxml"); }
+    @FXML private void handleMenuItemSuiviAffaires() { loadView("AffaireSuiviView.fxml"); }
+    @FXML private void handleMenuItemQuitter() {
         Stage stage = (Stage) mainBorderPane.getScene().getWindow();
         stage.close();
     }
 
     /**
-     * Méthode utilitaire pour charger une vue FXML et l'afficher au centre.
-     * @param fxmlFileName Le nom du fichier FXML à charger.
+     * Méthode utilitaire pour charger les vues.
+     * C'est ici que la magie opère pour la ToolBar.
      */
     private void loadView(String fxmlFileName) {
+        mainToolBar.getItems().clear();
+
         try {
             String resourcePath = "/com/contentieux/gestion_contentieux/" + fxmlFileName;
 
-            // Étape de débogage : vérifier si la ressource est trouvée
+            // 1. On déclare et initialise l'URL de la ressource
             URL resourceUrl = getClass().getResource(resourcePath);
+
+            // 2. On vérifie qu'elle n'est pas nulle
             if (resourceUrl == null) {
-                showAlert(Alert.AlertType.ERROR, "Erreur de ressource",
-                        "Le fichier FXML n'a pas été trouvé à l'emplacement : " + resourcePath);
-                return; // On arrête tout ici
+                showAlert("Erreur de ressource", "Fichier FXML non trouvé : " + resourcePath);
+                return;
             }
 
+            // 3. On utilise l'URL validée pour charger le FXML
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent view = loader.load();
+
+            Object controller = loader.getController();
+            if (controller instanceof IToolBarController) {
+                ((IToolBarController) controller).setToolBar(mainToolBar);
+            }
+
             mainBorderPane.setCenter(view);
 
         } catch (IOException e) {
-            // Cette erreur se produira si le FXML est trouvé mais contient une erreur de syntaxe
-            showAlert(Alert.AlertType.ERROR, "Erreur de chargement FXML",
-                    "Une erreur est survenue lors du chargement de la vue : " + fxmlFileName + "\n\nErreur détaillée : " + e.getMessage());
-            e.printStackTrace(); // On remet le printStackTrace ici pour voir l'erreur complète dans la console
+            showAlert("Erreur de chargement FXML", "Erreur lors du chargement de " + fxmlFileName);
+            e.printStackTrace();
         }
     }
 
-    // Ajouter cette méthode dans MainController.java
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
+    // La méthode showAlert ne change pas
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

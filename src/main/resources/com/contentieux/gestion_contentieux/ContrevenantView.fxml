@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.contentieux.gestion_contentieux.controller.ContrevenantController">
+    <center>
+        <TableView fx:id="contrevenantTableView">
+            <columns>
+                <TableColumn fx:id="codeColumn" text="Code"/>
+                <TableColumn fx:id="nomColumn" text="Nom Complet"/>
+                <TableColumn fx:id="adresseColumn" text="Adresse"/>
+                <TableColumn fx:id="telephoneColumn" text="Téléphone"/>
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="Code"/>
+            <TextField fx:id="codeField"/>
+            <Label text="Nom Complet"/>
+            <TextField fx:id="nomField"/>
+            <Label text="Adresse"/>
+            <TextField fx:id="adresseField"/>
+            <Label text="Téléphone"/>
+            <TextField fx:id="telephoneField"/>
+            <HBox spacing="5">
+                <Button onAction="#handleAdd" text="Ajouter"/>
+                <Button onAction="#handleUpdate" text="Modifier"/>
+            </HBox>
+            <Button onAction="#handleDelete" prefWidth="150" style="-fx-background-color: #ff6666;" text="Supprimer"/>
+        </VBox>
+    </right>
+</BorderPane>

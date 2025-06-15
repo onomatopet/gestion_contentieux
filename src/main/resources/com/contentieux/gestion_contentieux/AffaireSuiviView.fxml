@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.contentieux.gestion_contentieux.controller.AffaireSuiviController">
+    <top>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Suivi des Affaires Contentieuses">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label text="Rechercher par N° Affaire:" />
+                        <TextField fx:id="searchNumeroField" prefWidth="150.0" />
+                        <Label text="Contrevenant:" />
+                        <TextField fx:id="searchContrevenantField" prefWidth="200.0" />
+                        <Button fx:id="searchButton" onAction="#handleSearch" text="Rechercher" />
+                        <Button fx:id="resetButton" onAction="#handleReset" text="Réinitialiser" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </top>
+    <center>
+        <TableView fx:id="affaireTableView" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="numeroColumn" prefWidth="120.0" text="N° Affaire" />
+                <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date Création" />
+                <TableColumn fx:id="contrevenantColumn" prefWidth="200.0" text="Contrevenant" />
+                <TableColumn fx:id="contraventionColumn" prefWidth="200.0" text="Contravention" />
+                <TableColumn fx:id="montantAmendeColumn" prefWidth="120.0" text="Montant Amende" />
+                <TableColumn fx:id="montantEncaisseColumn" prefWidth="120.0" text="Montant Encaissé" />
+                <TableColumn fx:id="statutColumn" prefWidth="120.0" text="Statut" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

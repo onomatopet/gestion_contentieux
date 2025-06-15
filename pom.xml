@@ -36,6 +36,18 @@
             <version>21</version>
         </dependency>
 
+        <!-- Dépendance principale Ikonli -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>12.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-materialdesign-pack</artifactId>
+            <version>12.3.1</version>
+        </dependency>
+
         <!-- Dépendance pour le pilote de la base de données SQLite -->
         <dependency>
             <groupId>org.xerial</groupId>
